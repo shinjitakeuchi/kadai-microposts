@@ -31,7 +31,6 @@ class SessionsController < ApplicationController
       #ログイン成功
       session[:user_id] = @user.id
       return true
-    
     else
       #ログイン失敗
       return false
