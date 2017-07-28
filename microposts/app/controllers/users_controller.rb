@@ -9,6 +9,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @microposts = @user.microposts.order('created_at DESC').page(params[:page])
     counts(@user)
+    #あとで要否考える@like_posts = Favorite.where(micropost_id: params[micropost_id])
   end
 
   def new
@@ -17,11 +18,9 @@ class UsersController < ApplicationController
 
   def create 
     @user = User.new(user_params)
-  
     if @user.save
       flash[:success]='ユーザを登録しました'
       redirect_to @user
-  
     else
       flash.now[:danger]='ユーザの登録に失敗しました'
       render :new
@@ -40,6 +39,12 @@ class UsersController < ApplicationController
     counts(@user)  
   end
 
+  def like_posts(user_id)
+    @user = Favorite.find(params[:id])
+    likes_posts.find_by(user_id: @user_id)
+    counts(@like_posts)
+  end
+  
 private
 
   def user_params
