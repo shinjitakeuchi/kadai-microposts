@@ -45,12 +45,14 @@ class User < ApplicationRecord
     favorite.destroy if favorite
   end
   
+  
+  
   def like?(micropost)
     self.like_posts.include?(micropost)
   end
   
   def feed_likes
-    Micropost.where(micropost_id: self.like_posts_ids)
+    Micropost.where(micropost_id: self.like_posts)
   end
   
 end
